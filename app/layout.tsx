@@ -7,6 +7,7 @@ import { MdOutlineExitToApp } from "react-icons/md";
 import { TbCube } from "react-icons/tb";
 
 import Image from "next/image";
+import Navigations from "@/components/Navigations";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,12 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={inter.className} style={{backgroundColor: "#F3F6FD"}} >
 				<header></header>
-				<aside className="flex flex-col justify-between items-start fixed top-0 left-0 bottom-0 min-w-[260px] border-r-[1px] rounded-r-xl  ">
+				<aside className="flex flex-col justify-between items-start bg-white fixed top-0 left-0 bottom-0 min-w-[260px] border-r-[1px] rounded-r-xl">
 					{/* <Image src="" alt="" /> */}
 					<div className="w-full">
 						<h1 className="px-6 py-5 text-2xl">Admin</h1>
@@ -32,36 +34,11 @@ export default function RootLayout({
 							<span className="px-6 pb-3 text-[12px] opacity-[0.67]">
 								Главное меню
 							</span>
-							<ul className="w-full flex flex-col capitalize">
-								<li className="opacity-[0.67] pl-6 py-[10px] active-link">
-									<Link
-										className="flex items-center gap-3"
-										href="#"
-									>
-										<FiHome size="22px" /> Home
-									</Link>
-								</li>
-								<li className="opacity-[0.67] pl-6 py-[10px] ">
-									<Link
-										className="flex items-center gap-3"
-										href="#"
-									>
-										<TbCube size="22px" /> Goods
-									</Link>
-								</li>
-								<li className="opacity-[0.67] pl-6 py-[10px] ">
-									<Link
-										className="flex items-center gap-3"
-										href="#"
-									>
-										<FiFolder size="22px" /> Categories
-									</Link>
-								</li>
-							</ul>
+							<Navigations/>
 						</div>
 					</div>
-					<div>
-						<Link className="block opacity-[0.67] ml-6 py-[10px]" href="#">
+					<div className="w-full" >
+						<Link className="block opacity-[0.67] pl-6 py-[10px]" href="#">
 							<button className="flex items-center gap-3">
 								<FiUser size="22px" /> Account
 							</button>
@@ -73,7 +50,9 @@ export default function RootLayout({
 						</Link>
 					</div>
 				</aside>
-				{children}
+				<main className="w-full min-h-screen p-10 pl-[280px]" >
+					{children}
+				</main>
 				<footer></footer>
 			</body>
 		</html>
