@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface TableItemProps {}
@@ -30,12 +31,12 @@ const TableItem: React.FC<TableItemProps> = () => {
 			<td className="px-6 py-4">Laptop</td>
 			<td className="px-6 py-4">$2999</td>
 			<td className="px-6 py-4">
-				<a
-					href="#"
+				<Link
+					href="/goods/123"
 					className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
 				>
 					Edit
-				</a>
+				</Link>
 			</td>
 		</tr>
 	);
