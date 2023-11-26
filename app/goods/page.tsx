@@ -5,14 +5,15 @@ import Image from "next/image";
 export default function Page() {
 	return (
 		<div>
-			<h2 className="text-3xl mb-5" >Product list</h2>
-			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-					<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<h2 className="text-3xl mb-5">Product list</h2>
+			<div className="overflow-x-auto shadow-md sm:rounded-lg min-h-[80vh] relative pb-[80px]">
+				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+					<thead className="text-xs text-[#6A7899] uppercase bg-[#FEFEFE] font-normal">
 						<tr>
 							<th scope="col" className="p-4">
 								<div className="flex items-center">
-									<input
+									No
+									{/* <input
 										id="checkbox-all-search"
 										type="checkbox"
 										className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -22,7 +23,7 @@ export default function Page() {
 										className="sr-only"
 									>
 										checkbox
-									</label>
+									</label> */}
 								</div>
 							</th>
 							<th scope="col" className="px-6 py-3">
@@ -43,12 +44,14 @@ export default function Page() {
 						</tr>
 					</thead>
 					<tbody>
-						{[1, 2, 3, 4].map((item) => (
-							<TableItem />
+						{[1, 2, 3, 4,1,1,1,1,1].map((item, idx) => (
+							<TableItem key={idx} idx={idx} />
 						))}
 					</tbody>
 				</table>
-				<Pagination/>
+				<div className="absolute bottom-0 w-full" >
+					<Pagination />
+				</div>
 			</div>
 		</div>
 	);
