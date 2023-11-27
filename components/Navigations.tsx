@@ -12,8 +12,8 @@ const Navigations: React.FC<NavigationsProps> = () => {
 
 	return (
 		<ul className="w-full flex flex-col capitalize">
-			<li className={`opacity-[0.67] pl-6 py-[10px] ${pathname === "/" ? "active-link" : ""}`}>
-				<Link className="flex items-center gap-3" href="/">
+			<li className={`opacity-[0.67] pl-6 py-[10px] ${pathname === "/home" ? "active-link" : ""}`}>
+				<Link className="flex items-center gap-3" href="/home">
 					<FiHome size="22px" /> Home
 				</Link>
 			</li>
