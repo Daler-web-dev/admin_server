@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { FiUser } from "react-icons/fi";
-import { MdOutlineExitToApp } from "react-icons/md";
-
-import Navigations from "@/components/Navigations";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +17,7 @@ export default function RootLayout({
 
 	return (
 		<html lang="en">
-			<body className={inter.className} style={{backgroundColor: "#F3F6FD"}} >
+			<body className={inter.className} style={{backgroundColor: "#F3F6FD", height: "100vh"}} >
 				{children}
 			</body>
 		</html>
