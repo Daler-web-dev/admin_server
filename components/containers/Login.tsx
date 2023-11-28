@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/navigation'
+import { useCookies } from 'react-cookie';
 
 type Inputs = {
 	login: string;
@@ -11,13 +12,13 @@ type Inputs = {
 
 const Login = () => {
 	const [loading, setLoading] = useState(false);
+    const [cookies, setCookie] = useCookies(['token']);
     const router = useRouter()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Inputs>();
-
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		setLoading(true);
@@ -34,8 +35,8 @@ const Login = () => {
                     exp: data.authentication.payload.exp
                 }
 
-                localStorage.setItem('token', JSON.stringify(token))
 				setLoading(false);
+                setCookie('token', token)
                 router.push('/home')
 			}
 		} catch (e) {

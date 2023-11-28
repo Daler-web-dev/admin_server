@@ -3,12 +3,22 @@ import { FiUser } from "react-icons/fi";
 import { MdOutlineExitToApp } from "react-icons/md";
 
 import Navigations from "@/components/Navigations";
+import { cookies } from 'next/headers'
+import { redirect } from "next/navigation";
 
 export default function DashboardLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const cookieStore = cookies()
+	const theme = cookieStore.get('token')
+	const {token, exp} = JSON.parse(theme?.value || "")
+
+	if(exp < Date.now() / 1000) {
+		redirect('/login')
+	}
+
 	return (
 		<>
 			<header></header>
