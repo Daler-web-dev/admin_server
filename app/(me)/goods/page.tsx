@@ -1,11 +1,22 @@
 import Pagination from "@/components/Pagination";
 import TableItem from "@/components/TableItem";
-import Image from "next/image";
+import Link from "next/link";
+import { FiFolderPlus } from "react-icons/fi";
 
 export default function Page() {
 	return (
 		<div>
-			<h2 className="text-3xl mb-5">Product list</h2>
+			<div className="flex items-center justify-between w-full">
+				<h2 className="text-3xl mb-5">Product list</h2>
+				<Link href="/goods/create" >
+					<button
+						className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5"
+					>
+						<FiFolderPlus size="22" />
+						Create
+					</button>
+				</Link>
+			</div>
 			<div className="overflow-x-auto shadow-md sm:rounded-lg min-h-[80vh] relative pb-[80px]">
 				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
 					<thead className="text-xs text-[#6A7899] uppercase bg-[#FEFEFE] font-normal">
@@ -44,12 +55,12 @@ export default function Page() {
 						</tr>
 					</thead>
 					<tbody>
-						{[1, 2, 3, 4,1,1,1,1,1].map((item, idx) => (
+						{[1, 2, 3, 4, 1, 1, 1, 1, 1].map((item, idx) => (
 							<TableItem key={idx} idx={idx} />
 						))}
 					</tbody>
 				</table>
-				<div className="absolute bottom-0 w-full" >
+				<div className="absolute bottom-0 w-full">
 					<Pagination />
 				</div>
 			</div>
