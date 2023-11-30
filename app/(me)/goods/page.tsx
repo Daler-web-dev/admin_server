@@ -1,9 +1,21 @@
 import Pagination from "@/components/Pagination";
 import TableItem from "@/components/TableItem";
+import axios from "axios";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { FiFolderPlus } from "react-icons/fi";
 
-export default function Page() {
+export default async function Page() {
+	const cookieStore = cookies()
+	const theme = cookieStore.get('token')
+	const {token} = JSON.parse(theme?.value || "")
+
+	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products", {
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	})
+
 	return (
 		<div>
 			<div className="flex items-center justify-between w-full">
@@ -55,13 +67,13 @@ export default function Page() {
 						</tr>
 					</thead>
 					<tbody>
-						{[1, 2, 3, 4, 1, 1, 1, 1, 1].map((item, idx) => (
+						{res.data.data.map((item:any, idx:number) => (
 							<TableItem key={idx} idx={idx} />
 						))}
 					</tbody>
 				</table>
 				<div className="absolute bottom-0 w-full">
-					<Pagination />
+					<Pagination data={res.data.data} />
 				</div>
 			</div>
 		</div>

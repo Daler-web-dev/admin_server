@@ -13,7 +13,9 @@ export default function DashboardLayout({
 }) {
 	const cookieStore = cookies()
 	const theme = cookieStore.get('token')
-	const {token, exp} = JSON.parse(theme?.value || "")
+	if(!theme) redirect('/login')
+
+	const {exp} = JSON.parse(theme?.value || "")
 
 	if(exp < Date.now() / 1000) {
 		redirect('/login')

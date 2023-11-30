@@ -1,8 +1,10 @@
 import React from "react";
 
-interface PaginationProps {}
+interface PaginationProps {
+	data: any
+}
 
-const Pagination: React.FC<PaginationProps> = () => {
+const Pagination: React.FC<PaginationProps> = ({data}) => {
 	return (
 		<nav
 			className="flex items-center flex-column flex-wrap md:flex-row px-3 py-3 justify-between pt-4 text-[#6A7899] bg-[#FEFEFE]"
@@ -11,7 +13,7 @@ const Pagination: React.FC<PaginationProps> = () => {
 			<span className="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">
 				Showing{" "}
 				<span className="font-semibold text-gray-900 ">
-					1-10
+					{data.skip}
 				</span>{" "}
 				of{" "}
 				<span className="font-semibold text-gray-900">
