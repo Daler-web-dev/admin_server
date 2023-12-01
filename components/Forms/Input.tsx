@@ -2,20 +2,18 @@ import React from "react";
 
 interface InputProps {
 	placeholder?: string;
-	value?: string;
-	name?: string;
 	type?: string;
+	rules: any
 }
 
 const Input: React.FC<InputProps> = ({
 	placeholder,
-	value = "",
-	name = "",
 	type = "text",
+	rules
 }) => {
 	return (
 		<>
-			<input className="w-full font-normal border-2 rounded-md" type={type} placeholder={placeholder} name={name} defaultValue={value} />
+			<input {...rules} className="w-full font-normal border-2 rounded-md" type={type} placeholder={placeholder}/>
 		</>
 	);
 };
