@@ -3,9 +3,26 @@ import React from "react";
 
 interface TableItemProps {
 	idx: number
+	name: string
+	image: string
+	description: string
+	price: number
+	category: {
+		_id: string
+		name: string
+		image: string
+		createdAt: string
+		updatedAt: string
+	}
+	titles: {
+		ruTitle: string
+		engTitle: string
+		uzTitle: string
+	},
 }
 
-const TableItem: React.FC<TableItemProps> = ({idx}) => {
+const TableItem: React.FC<TableItemProps> = ({idx, name, titles, image, price, description, category}) => {
+	
 	return (
 		<tr className="bg-[#EEF1F8] border-b hover:bg-gray-200 even:bg-white text-[#111728]">
 			<td className="w-4 p-4">
@@ -17,11 +34,11 @@ const TableItem: React.FC<TableItemProps> = ({idx}) => {
 				scope="row"
 				className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
 			>
-				Apple MacBook Pro 17
+				{name}
 			</th>
-			<td className="px-6 py-4">Silver</td>
-			<td className="px-6 py-4">Laptop</td>
-			<td className="px-6 py-4">$2999</td>
+			<td className="px-6 py-4">nothing</td>
+			<td className="px-6 py-4">{category.name}</td>
+			<td className="px-6 py-4">${price}</td>
 			<td className="px-6 py-4">
 				<Link
 					href="/goods/123"

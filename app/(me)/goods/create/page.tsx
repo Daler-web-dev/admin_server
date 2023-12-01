@@ -46,7 +46,6 @@ const Product = () => {
 					formData.append(key, value);
 				}
 			});
-			console.log(data);
 			
 			const response = await axios.post(
 				process.env.NEXT_PUBLIC_API + "/products",
