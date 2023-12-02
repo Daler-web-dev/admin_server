@@ -6,15 +6,7 @@ import Link from "next/link";
 import { FiFolderPlus } from "react-icons/fi";
 
 export default async function Page() {
-	const cookieStore = cookies()
-	const theme = cookieStore.get('token')
-	const {token} = JSON.parse(theme?.value || "")
-
-	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products", {
-		headers: {
-			Authorization: `Bearer ${token}`
-		}
-	})
+	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products")
 
 	return (
 		<div>
@@ -42,7 +34,7 @@ export default async function Page() {
 								Product name
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Color
+								
 							</th>
 							<th scope="col" className="px-6 py-3">
 								Category

@@ -4,16 +4,18 @@ interface InputProps {
 	placeholder?: string;
 	type?: string;
 	rules: any
+	value?: string | number
 }
 
 const Input: React.FC<InputProps> = ({
 	placeholder,
 	type = "text",
-	rules
+	rules,
+	value=""
 }) => {
 	return (
 		<>
-			<input {...rules} className="w-full font-normal border-2 rounded-md" type={type} placeholder={placeholder}/>
+			<input {...rules} defaultValue={value} className="w-full font-normal border-2 rounded-md" type={type} placeholder={placeholder}/>
 		</>
 	);
 };
