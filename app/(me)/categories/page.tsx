@@ -1,20 +1,37 @@
 import CategoryModal from "@/components/CategoryModal";
+import DeleteBtn from "@/components/DeleteBtn";
 import Pagination from "@/components/Pagination";
 import axios from "axios";
-import { FaPen, FaRegTrashAlt } from "react-icons/fa";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { FaPen } from "react-icons/fa";
 import { FiFolderPlus } from "react-icons/fi";
 
 export default async function Page() {
 	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/categories");
+	const cookieStore = cookies();
+	const theme = cookieStore.get("token");
+	const { token } = JSON.parse(theme?.value || "");
+
+	async function onClose() {
+		"use server";
+		console.log("Modal has close");
+	}
+	async function onOk() {
+		"use server";
+		console.log("Ok was clicked");
+	}
 
 	return (
 		<div>
 			<div className="flex items-center justify-between w-full">
 				<h2 className="text-3xl mb-5">Product list</h2>
-				<button className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5">
-					<FiFolderPlus size="22" />
-					Create
-				</button>
+				<Link href="?showDialog=y">
+					<button className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5">
+						<FiFolderPlus size="22" />
+						Create
+					</button>
+				</Link>
 			</div>
 			<div className="overflow-x-auto shadow-md sm:rounded-lg min-h-[80vh] relative pb-[80px]">
 				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
@@ -60,9 +77,7 @@ export default async function Page() {
 									<button className="mr-4 p-3 bg-blue-600 hover:bg-blue-400 text-white rounded-md">
 										<FaPen />
 									</button>
-									<button className="mr-4 p-3 bg-red-600 hover:bg-red-400 text-white rounded-md">
-										<FaRegTrashAlt />
-									</button>
+									<DeleteBtn token={token} id={item._id} />
 								</td>
 							</tr>
 						))}
@@ -72,9 +87,7 @@ export default async function Page() {
 					<Pagination data={res.data.data} />
 				</div>
 			</div>
-			<CategoryModal/>
+			<CategoryModal onClose={onClose} onOk={onOk} />
 		</div>
 	);
 }
-
-
