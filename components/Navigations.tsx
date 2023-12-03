@@ -22,8 +22,8 @@ const Navigations: React.FC<NavigationsProps> = () => {
 					<TbCube size="22px" /> Goods
 				</Link>
 			</li>
-			<li className="opacity-[0.67] pl-6 py-[10px] ">
-				<Link className="flex items-center gap-3" href="#">
+			<li className={`opacity-[0.67] pl-6 py-[10px] ${pathname === "/categories" ? "active-link" : ""}`}>
+				<Link className="flex items-center gap-3" href="/categories">
 					<FiFolder size="22px" /> Categories
 				</Link>
 			</li>

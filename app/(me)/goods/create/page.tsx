@@ -9,6 +9,7 @@ import { FiFolderPlus } from "react-icons/fi";
 import { MdCancel } from "react-icons/md";
 import TextArea from "@/components/Forms/TextArea";
 import FileUpload from "@/components/Forms/FileUpload";
+import Link from "next/link";
 
 interface Inputs {
 	name: string;
@@ -84,6 +85,7 @@ const Product = () => {
  					<div className="flex items-center justify-between w-full mb-5">
  						<div>
  							<Input
+								label="Name"
 								placeholder="Product name"
 								rules={{
 									...register("name", { required: true }),
@@ -104,13 +106,15 @@ const Product = () => {
 								<FiFolderPlus size="22" />
 								Create/Save
 							</button>
-							<button
-								type="button"
-								className="flex items-center gap-3 bg-red-500 text-white py-3 px-5 rounded-md"
-							>
-								<MdCancel />
-								Cancel
-							</button>
+							<Link href="/goods" >
+								<button
+									type="button"
+									className="flex items-center gap-3 bg-red-500 text-white py-3 px-5 rounded-md"
+								>
+									<MdCancel />
+									Cancel
+								</button>
+							</Link>
 						</div>
 					</div>
 					<div className="flex items-start gap-10 ">
@@ -118,10 +122,12 @@ const Product = () => {
 							handleImageChange={handleImageChange}
 							rules={{...register('image', { required: 'Image is required' })}}
 							image={image}
+							currentImage=""
 						/>
 
 						<div className="flex flex-col items-start gap-2 w-full">
 							<Input
+								label="Category"
 								placeholder="Category"
 								rules={{
 									...register("category", { required: true }),
@@ -133,6 +139,7 @@ const Product = () => {
 								</span>
 							)}
 							<Input
+								label="Uz Title"
 								placeholder="Title Uzbek"
 								rules={{
 									...register("titles.uzTitle", {
@@ -146,6 +153,7 @@ const Product = () => {
 								</span>
 							)}
 							<Input
+								label="Ru Title"
 								placeholder="Title Russian"
 								rules={{
 									...register("titles.ruTitle", {
@@ -159,6 +167,7 @@ const Product = () => {
 								</span>
 							)}
 							<Input
+								label="En Title"
 								placeholder="Title English"
 								rules={{
 									...register("titles.engTitle", {
@@ -172,8 +181,8 @@ const Product = () => {
 								</span>
 							)}
 							<div className="flex items-center text-xl font-bold gap-2">
-								<span className="font-normal">Price: </span>$
 								<Input
+									label="Price"
 									rules={{
 										...register("price", {
 											required: true,
