@@ -7,7 +7,8 @@ import { FiFolderPlus } from "react-icons/fi";
 
 export default async function Page() {
 	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products")
-
+	console.log(res.data.data);
+	
 	return (
 		<div>
 			<div className="flex items-center justify-between w-full">

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import Input from "../Forms/Input";
 import TextArea from "../Forms/TextArea";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FileUpload from "../Forms/FileUpload";
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -59,7 +59,7 @@ const Product: React.FC<ProductProps> = ({
 	const [cookies, setCookie] = useCookies(["token"]);
 	const [changing, setChanging] = useState(false);
 	const [fileImage, setFileImage] = useState<string | null>(null);
-	const { refresh } = useRouter();
+	const { refresh, push } = useRouter();
 	const initialValues: any = {
 		name,
 		category,
@@ -68,7 +68,7 @@ const Product: React.FC<ProductProps> = ({
 		description,
 		image,
 	};
-	const { register, handleSubmit, getValues, setValue } = useForm<Inputs>({
+	const { register, handleSubmit } = useForm<Inputs>({
 		defaultValues: {
 			name,
 			category,
@@ -78,6 +78,7 @@ const Product: React.FC<ProductProps> = ({
 			image,
 		},
 	});
+	
 
 	const onSubmit = async (data: any) => {
 		try {
@@ -108,10 +109,12 @@ const Product: React.FC<ProductProps> = ({
 				{} as Partial<Inputs>
 			);
 
-			changedFields = {
-				...changedFields,
-				image: changedFields.image[0],
-			};
+			if(changedFields?.image) {
+				changedFields = {
+					...changedFields,
+					image: changedFields?.image[0],
+				};
+			}
 
 			const response = await axios.patch(
 				process.env.NEXT_PUBLIC_API + "/products/" + _id,
@@ -146,6 +149,28 @@ const Product: React.FC<ProductProps> = ({
 			reader.readAsDataURL(file);
 		}
 	};
+
+	const handleRemove = async () => {
+		const answer = confirm('Are u sure to delete this product?')
+
+		if(answer) {
+			try {
+				const res = await axios.delete(process.env.NEXT_PUBLIC_API + "/products/" + _id, {
+					headers: {
+						Authorization: cookies?.token?.token
+					}
+				})
+
+				if(res.status === 201 || res.status === 200) {
+					alert('Success!')
+					push("/goods")
+				}
+			} catch(e) {
+				alert('Network error try again')
+			}
+		}
+	}
+
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -204,6 +229,7 @@ const Product: React.FC<ProductProps> = ({
 						) : (
 							<button
 								type="button"
+								onClick={handleRemove}
 								className="flex items-center gap-3 bg-red-500 text-white py-3 px-5 rounded-md"
 							>
 								<FaRegTrashAlt />
@@ -257,8 +283,8 @@ const Product: React.FC<ProductProps> = ({
 						) : (
 							<>
 								<h2 className="text-2xl font-bold" >Category</h2>
-								<span className="opacity-[0.40]">
-									{category?.name}
+								<span>
+									{category.name}
 								</span>
 							</>
 						)}
