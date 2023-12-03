@@ -1,7 +1,6 @@
+import CategoryModal from "@/components/CategoryModal";
 import Pagination from "@/components/Pagination";
-import TableItem from "@/components/TableItem";
 import axios from "axios";
-import Link from "next/link";
 import { FaPen, FaRegTrashAlt } from "react-icons/fa";
 import { FiFolderPlus } from "react-icons/fi";
 
@@ -12,12 +11,10 @@ export default async function Page() {
 		<div>
 			<div className="flex items-center justify-between w-full">
 				<h2 className="text-3xl mb-5">Product list</h2>
-				<Link href="/goods/create">
-					<button className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5">
-						<FiFolderPlus size="22" />
-						Create
-					</button>
-				</Link>
+				<button className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5">
+					<FiFolderPlus size="22" />
+					Create
+				</button>
 			</div>
 			<div className="overflow-x-auto shadow-md sm:rounded-lg min-h-[80vh] relative pb-[80px]">
 				<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
@@ -39,7 +36,10 @@ export default async function Page() {
 					</thead>
 					<tbody>
 						{res.data.data.map((item: any, idx: number) => (
-							<tr key={idx} className="bg-[#EEF1F8] border-b hover:bg-gray-200 even:bg-white text-[#111728]">
+							<tr
+								key={idx}
+								className="bg-[#EEF1F8] border-b hover:bg-gray-200 even:bg-white text-[#111728]"
+							>
 								<td className="w-4 p-4">
 									<div className="flex items-center">
 										{idx + 1}
@@ -72,6 +72,9 @@ export default async function Page() {
 					<Pagination data={res.data.data} />
 				</div>
 			</div>
+			<CategoryModal/>
 		</div>
 	);
 }
+
+
