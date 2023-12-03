@@ -17,10 +17,10 @@ export default async function Page() {
 		"use server";
 		console.log("Modal has close");
 	}
-	async function onOk() {
-		"use server";
-		console.log("Ok was clicked");
-	}
+		async function onOk() {
+			"use server";
+			console.log("Ok was clicked");
+		}
 
 	return (
 		<div>
