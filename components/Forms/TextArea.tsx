@@ -9,7 +9,7 @@ interface TextAreaProps {
 const TextArea: React.FC<TextAreaProps> = ({placeholder = "", rules, value}) => {
 	return (
 		<textarea
-			className="w-full border-2 rounded-md"
+			className="w-full border-2 rounded-md p-3"
 			placeholder={placeholder}
 			defaultValue={value}
 			{...rules}

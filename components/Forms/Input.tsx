@@ -5,17 +5,20 @@ interface InputProps {
 	type?: string;
 	rules: any
 	value?: string | number
+	label: string
 }
 
 const Input: React.FC<InputProps> = ({
 	placeholder,
 	type = "text",
 	rules,
-	value=""
+	value="",
+	label
 }) => {
 	return (
 		<>
-			<input {...rules} defaultValue={value} className="w-full font-normal border-2 rounded-md" type={type} placeholder={placeholder}/>
+			<label htmlFor={label}>{label}</label>
+			<input {...rules} id={label} defaultValue={value} className="w-full font-normal border-2 rounded-md p-3" type={type} placeholder={placeholder}/>
 		</>
 	);
 };

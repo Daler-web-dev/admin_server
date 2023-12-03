@@ -6,3 +6,12 @@
 .active-link {
     @apply bg-[#daebff] border-r-[3px] border-[#007aff] opacity-[1] font-normal;
 }
+.customAfter::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(255,255,255,.5);
+    width: 100%;
+    height: 100%;
+}
