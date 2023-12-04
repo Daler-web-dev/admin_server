@@ -170,7 +170,7 @@ const Product: React.FC<ProductProps> = ({
 			}
 		}
 	}
-
+	
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
