@@ -274,7 +274,7 @@ const Product: React.FC<ProductProps> = ({
 									})}
 								>
 									{categories.data.map((item: Category) => (
-										<option key={item._id} value={item._id}>
+										<option value={item._id}>
 											{item.name}
 										</option>
 									))}
