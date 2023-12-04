@@ -1,5 +1,6 @@
 import CategoryModal from "@/components/CategoryModal";
 import DeleteBtn from "@/components/DeleteBtn";
+import EditCategory from "@/components/EditCategory";
 import Pagination from "@/components/Pagination";
 import axios from "axios";
 import { cookies } from "next/headers";
@@ -74,9 +75,11 @@ export default async function Page() {
 								</th>
 								<td className="px-6 py-4">{item.name}</td>
 								<td className="px-6 py-4 text-end ">
-									<button className="mr-4 p-3 bg-blue-600 hover:bg-blue-400 text-white rounded-md">
-										<FaPen />
-									</button>
+									<Link href={`?showEditDialog=y&name=${item.name}&image=${item.image}&id=${item._id}`} >
+										<button className="mr-4 p-3 bg-blue-600 hover:bg-blue-400 text-white rounded-md">
+											<FaPen />
+										</button>
+									</Link>
 									<DeleteBtn token={token} id={item._id} />
 								</td>
 							</tr>
@@ -88,6 +91,7 @@ export default async function Page() {
 				</div>
 			</div>
 			<CategoryModal onClose={onClose} onOk={onOk} />
+			<EditCategory onClose={onClose} onOk={onOk} />
 		</div>
 	);
 }

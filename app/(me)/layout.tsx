@@ -27,7 +27,7 @@ export default function DashboardLayout({
 			<aside className="flex flex-col justify-between items-start bg-white fixed top-0 left-0 bottom-0 min-w-[260px] border-r-[1px] rounded-r-xl">
 				{/* <Image src="" alt="" /> */}
 				<div className="w-full">
-					<h1 className="px-6 py-5 text-2xl">Admin</h1>
+					<h1 className="px-6 py-5 text-2xl">Amadea</h1>
 					<div className="flex items-start flex-col">
 						<span className="px-6 pb-3 text-[12px] opacity-[0.67]">
 							Главное меню

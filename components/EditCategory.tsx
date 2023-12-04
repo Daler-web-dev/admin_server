@@ -18,32 +18,55 @@ interface Props {
 	onOk: () => void;
 }
 
-export default function CategoryModal({ category, onClose, onOk }: Props) {
+export default function EditCategory({ category, onClose, onOk }: Props) {
 	const [image, setImage] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [cookies, setCookie] = useCookies(["token"]);
-
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const dialogRef = useRef<null | HTMLDialogElement>(null);
+	const showDialog = searchParams.get("showEditDialog");
+	const name = searchParams.get("name");
+	const current_image = searchParams.get("image");
+	const id = searchParams.get("id");
+
+	const initialValues: any = {
+		name,
+		image: current_image,
+	};
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<Inputs>();
+	} = useForm<Inputs>({
+		defaultValues: {
+			name: name || "",
+			image: current_image || "",
+		},
+	});
 
 	const onSubmit = async (data: any) => {
-        setLoading(true)
+		setLoading(true);
 		try {
-			let formData = new FormData();
-			formData.append("name", data.name);
-			formData.append("image", data.image[0]);
-
-			const res = await axios.post(
-				process.env.NEXT_PUBLIC_API + "/categories",
-				formData,
+            // if(data.name === name || data.image[])    
+            
+            // console.log(data.image, "SSSSS");
+            console.log(data.image[0]);
+            
+            if(typeof(data.image) !== 'string') {
+                data.image = data?.image[0]
+            }
+            console.log(data);
+            
+			const res = await axios.patch(
+				process.env.NEXT_PUBLIC_API + "/categories/" + id,
+				data,
 				{
 					headers: {
 						Authorization: cookies?.token?.token,
+                        "Content-Type": "multipart/form-data"
 					},
 				}
 			);
@@ -51,12 +74,12 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 			if (res.status === 200 || res.status === 201) {
 				reset();
 				closeDialog();
-                setImage(null)
-                setLoading(false)
+				setImage(null);
+				setLoading(false);
 				return;
 			}
-		} catch (e) {
-            setLoading(false)
+		} catch (e) {            
+			setLoading(false);
 			alert("Network error!");
 		}
 	};
@@ -75,10 +98,6 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 		}
 	};
 
-	const searchParams = useSearchParams();
-	const dialogRef = useRef<null | HTMLDialogElement>(null);
-	const showDialog = searchParams.get("showDialog");
-
 	useEffect(() => {
 		if (showDialog === "y") {
 			dialogRef.current?.showModal();
@@ -89,18 +108,15 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 
 	const closeDialog = () => {
 		dialogRef.current?.close();
-		router.push("?showDialog=n", { shalow: false });
+		router.push("?showEditDialog=n", { shalow: false });
 		onClose();
-	};
-	const clickOk = () => {
-		onOk();
-		closeDialog();
 	};
 
 	const dialog: JSX.Element | null =
 		showDialog === "y" ? (
 			<dialog ref={dialogRef}>
 				<div className="flex flex-col gap-3 w-[700px] h-[400px] bg-white rounded-md p-4">
+					<h1>edit</h1>
 					<button
 						onClick={closeDialog}
 						className="absolute top-4 right-4"
@@ -123,7 +139,7 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 							type="file"
 							id="dropzone-file"
 							{...register("image", {
-								required: "Image is required",
+								required: false,
 							})}
 							onChange={handleImageChange}
 							multiple
@@ -136,7 +152,7 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 					</form>
 					<h3>Category name: </h3>
 					<img
-						src={image || ""}
+						src={image || current_image || ""}
 						alt=""
 						className="w-full bg-gray-500 h-[200px] object-cover"
 					/>
