@@ -20,8 +20,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 				<label
 					htmlFor="dropzone-file"
 					style={
-						image ||
-						(currentImage && {
+						((image || currentImage) && {
 							backgroundImage: `url(${image || currentImage}`,
 							backgroundRepeat: "no-repeat",
 							backgroundSize: "cover",
@@ -48,7 +47,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 					className="hidden"
 					type="file"
 					id="dropzone-file"
-					onChange={handleImageChange}
+					onInput={handleImageChange}
 					{...rules}
 					multiple
 				/>
