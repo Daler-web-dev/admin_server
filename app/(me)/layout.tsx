@@ -3,23 +3,28 @@ import { FiUser } from "react-icons/fi";
 import { MdOutlineExitToApp } from "react-icons/md";
 
 import Navigations from "@/components/Navigations";
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { TbDatabaseImport } from "react-icons/tb";
+import axios from "axios";
+import ImportDB from "@/components/ImportDB";
 
 export default function DashboardLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const cookieStore = cookies()
-	const theme = cookieStore.get('token')
-	if(!theme) redirect('/login')
+	const cookieStore = cookies();
+	const theme = cookieStore.get("token");
+	if (!theme) redirect("/login");
 
-	const {exp} = JSON.parse(theme?.value || "")
+	const { exp } = JSON.parse(theme?.value || "");
 
-	if(exp < Date.now() / 1000) {
-		redirect('/login')
+	if (exp < Date.now() / 1000) {
+		redirect("/login");
 	}
+
+
 
 	return (
 		<>
@@ -30,9 +35,17 @@ export default function DashboardLayout({
 					<h1 className="px-6 py-5 text-2xl">Amadea</h1>
 					<div className="flex items-start flex-col">
 						<span className="px-6 pb-3 text-[12px] opacity-[0.67]">
-							Главное меню
+							Main menu
 						</span>
 						<Navigations />
+					</div>
+					<div className="flex items-start flex-col mt-2">
+						<span className="px-6 pb-3 text-[12px] opacity-[0.67]">
+							Functions
+						</span>
+						<ul className="w-full flex flex-col capitalize">
+							<ImportDB/>
+						</ul>
 					</div>
 				</div>
 				<div className="w-full">
