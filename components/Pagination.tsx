@@ -1,10 +1,14 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 
 interface PaginationProps {
-	data: any
+	handleGetPage: (page: any) => Promise<void>
+	data: any;
 }
 
-const Pagination: React.FC<PaginationProps> = ({data}) => {
+const Pagination: React.FC<PaginationProps> = ({ data, handleGetPage }) => {
+	// const [page, setPage] = useState()
+	
 	return (
 		<nav
 			className="flex items-center flex-column flex-wrap md:flex-row px-3 py-3 justify-between pt-4 text-[#6A7899] bg-[#FEFEFE]"
@@ -13,11 +17,11 @@ const Pagination: React.FC<PaginationProps> = ({data}) => {
 			<span className="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">
 				Showing{" "}
 				<span className="font-semibold text-gray-900 ">
-					{data.skip}
+					{data.data.length}
 				</span>{" "}
 				of{" "}
 				<span className="font-semibold text-gray-900">
-					1000
+					{data.count}
 				</span>
 			</span>
 			<ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
@@ -29,47 +33,17 @@ const Pagination: React.FC<PaginationProps> = ({data}) => {
 						Previous
 					</a>
 				</li>
-				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
-					>
-						1
-					</a>
-				</li>
-				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
-					>
-						2
-					</a>
-				</li>
-				<li>
-					<a
-						href="#"
-						aria-current="page"
-						className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 "
-					>
-						3
-					</a>
-				</li>
-				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
-					>
-						4
-					</a>
-				</li>
-				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
-					>
-						5
-					</a>
-				</li>
+				{Array.from({ length: data.pageCount }).map((item, idx:number) => (
+					<li key={idx} onClick={() => {
+						handleGetPage(idx + 1)
+					}} >
+						<span
+							className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
+						>
+							{idx + 1}
+						</span>
+					</li>
+				))}
 				<li>
 					<a
 						href="#"

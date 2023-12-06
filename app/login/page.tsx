@@ -1,5 +1,4 @@
 import Login from "@/components/containers/Login";
-import { cookies } from "next/headers";
 
 export default function LoginPage() {
 	return (

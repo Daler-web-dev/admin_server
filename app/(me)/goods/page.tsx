@@ -8,6 +8,15 @@ import { FiFolderPlus } from "react-icons/fi";
 export default async function Page() {
 	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products")
 
+	async function handleGetPage(page:any) {
+		"use server"
+		console.log(page);
+		const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products?page=" + page)
+
+		console.log(CreateTables({arr: res.data.data}));
+		
+	}	
+
 	return (
 		<div>
 			<div className="flex items-center justify-between w-full">
@@ -48,15 +57,24 @@ export default async function Page() {
 						</tr>
 					</thead>
 					<tbody>
-						{res.data.data.map((item:any, idx:number) => (
+						{CreateTables({arr: res.data.data})}
+						{/* {res.data.data.map((item:any, idx:number) => (
 							<TableItem key={idx} idx={idx} {...item} />
-						))}
+						))} */}
 					</tbody>
 				</table>
 				<div className="absolute bottom-0 w-full">
-					<Pagination data={res.data.data} />
+					<Pagination data={res.data} handleGetPage={handleGetPage} />
 				</div>
 			</div>
 		</div>
 	);
+}
+
+function CreateTables({arr}:any) {
+	return (
+		arr.map((item:any, idx:number) => (
+			<TableItem key={idx} idx={idx} {...item} />
+		))
+	)
 }

@@ -48,7 +48,7 @@ export default function DashboardLayout({
 						</ul>
 					</div>
 				</div>
-				<div className="w-full">
+				<div className="w-full pb-4">
 					{/* <Link
 						className="block opacity-[0.67] pl-6 py-[10px]"
 						href="#"

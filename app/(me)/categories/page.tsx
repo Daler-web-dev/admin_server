@@ -14,6 +14,11 @@ export default async function Page() {
 	const theme = cookieStore.get("token");
 	const { token } = JSON.parse(theme?.value || "");
 
+	async function handleGetPage(page: number) {
+		"use server";
+		const res = await axios.get(process.env.NEXT_PUBLIC_API + "/categories?page=" + page)
+		console.log({res});
+	}
 	async function onClose() {
 		"use server";
 
@@ -88,7 +93,7 @@ export default async function Page() {
 					</tbody>
 				</table>
 				<div className="absolute bottom-0 w-full">
-					<Pagination data={res.data.data} />
+					<Pagination data={res.data} handleGetPage={handleGetPage} />
 				</div>
 			</div>
 			<CategoryModal onClose={onClose} onOk={onOk} />
