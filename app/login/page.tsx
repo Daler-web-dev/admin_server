@@ -1,7 +1,7 @@
 import Login from "@/components/containers/Login";
+import { cookies } from "next/headers";
 
 export default function LoginPage() {
-
 	return (
 		<div className="w-full h-screen flex justify-center items-center bg-[#F3F6FE]">
 			<div className="w-[400px]">

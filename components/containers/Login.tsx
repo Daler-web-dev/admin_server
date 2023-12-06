@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/navigation'
 import { useCookies } from 'react-cookie';
@@ -12,13 +12,18 @@ type Inputs = {
 
 const Login = () => {
 	const [loading, setLoading] = useState(false);
-    const [cookies, setCookie] = useCookies(['token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const router = useRouter()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Inputs>();
+
+	useEffect(() => {
+		removeCookie('token')
+	}, []);
+
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		setLoading(true);
@@ -44,6 +49,7 @@ const Login = () => {
 			setLoading(false);
 		}
 	};
+
 
 	return (
 		<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>

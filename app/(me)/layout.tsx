@@ -59,7 +59,7 @@ export default function DashboardLayout({
 					</Link> */}
 					<Link
 						className="block opacity-[0.67] ml-6 py-[10px]"
-						href="#"
+						href="/login"
 					>
 						<button className="flex items-center gap-3">
 							<MdOutlineExitToApp size="22px" /> Exit
