@@ -359,7 +359,7 @@ const Product: React.FC<ProductProps> = ({
 			</div>
 			<div className="border-2 rounded-xl p-4 bg-white">
 				<div className="flex flex-col gap-4">
-					<h2 className="text-2xl font-bold" >Price</h2>
+					<h2 className="text-2xl font-bold" >Description</h2>
 					<hr />
 					{changing ? (
 						<TextArea

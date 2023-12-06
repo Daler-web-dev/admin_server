@@ -36,14 +36,14 @@ export default function DashboardLayout({
 					</div>
 				</div>
 				<div className="w-full">
-					<Link
+					{/* <Link
 						className="block opacity-[0.67] pl-6 py-[10px]"
 						href="#"
 					>
 						<button className="flex items-center gap-3">
 							<FiUser size="22px" /> Account
 						</button>
-					</Link>
+					</Link> */}
 					<Link
 						className="block opacity-[0.67] ml-6 py-[10px]"
 						href="#"

@@ -16,6 +16,7 @@ export default async function Page() {
 
 	async function onClose() {
 		"use server";
+
 		console.log("Modal has close");
 	}
 		async function onOk() {
