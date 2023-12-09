@@ -22,8 +22,8 @@
 	border: 1px solid #fff;
 	border-radius: 0 0 50px 50px;
 	position: relative;
-	box-shadow: 0px 0px #ff3d00 inset;
-	background-image: linear-gradient(#ff3d00 100px, transparent 0);
+	box-shadow: 0px 0px red inset;
+	background-image: linear-gradient(red 100px, transparent 0);
 	background-position: 0px 0px;
 	background-size: 22px 80px;
 	background-repeat: no-repeat;

@@ -10,7 +10,7 @@ import { MdCancel } from "react-icons/md";
 import TextArea from "@/components/Forms/TextArea";
 import FileUpload from "@/components/Forms/FileUpload";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 interface Inputs {
     name: string;
@@ -29,7 +29,7 @@ const Product = () => {
     const [cookies, setCookie] = useCookies(["token"]);
     const [categories, setCategories] = useState([]);
     const [handleModal, setHandleModal] = useState(false);
-	const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
         axios
@@ -46,7 +46,7 @@ const Product = () => {
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
-			setHandleModal(true)
+            setHandleModal(true);
 
             const formData = new FormData();
             Object.entries(data).forEach(([key, value]) => {
@@ -72,8 +72,7 @@ const Product = () => {
             );
 
             // console.log("Data uploaded successfully:", response.data);
-			router.push("/goods")
-
+            router.push("/goods");
         } catch (error) {
             console.error("Error uploading data:", error);
         }
@@ -94,169 +93,164 @@ const Product = () => {
     };
 
     return (
-        <>
-            {handleModal ? (
-                <div className="w-full h-[70vh] flex items-center justify-center">
-                    <span className="loader"></span>
-				</div>
-            ) : (
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="border-2 rounded-xl p-4 bg-white">
-                        <div className="flex items-center justify-between w-full mb-5">
-                            <div>
-                                <Input
-                                    label="Name"
-                                    placeholder="Product name"
-                                    rules={{
-                                        ...register("name", { required: true }),
-                                    }}
-                                />
-                                {errors.name && (
-                                    <span className="text-red-500">
-                                        Title is required
-                                    </span>
-                                )}
-                            </div>
-
-                            <div className="flex items-center gap-5">
-                                <button
-                                    type="submit"
-                                    className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md"
-                                >
-                                    <FiFolderPlus size="22" />
-                                    Create/Save
-                                </button>
-                                <Link href="/goods">
-                                    <button
-                                        type="button"
-                                        className="flex items-center gap-3 bg-red-500 text-white py-3 px-5 rounded-md"
-                                    >
-                                        <MdCancel />
-                                        Cancel
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-10 ">
-                            <FileUpload
-                                handleImageChange={handleImageChange}
-                                rules={{
-                                    ...register("image", {
-                                        required: "Image is required",
-                                    }),
-                                }}
-                                image={image}
-                                currentImage=""
-                            />
-
-                            <div className="flex flex-col items-start gap-2 w-full">
-                                <>
-                                    <span>Category</span>
-                                    <select
-                                        className="w-full font-normal border-2 rounded-md p-3"
-                                        {...register("category", {
-                                            required: true,
-                                        })}
-                                    >
-                                        {categories?.map((item: any) => (
-                                            <option
-                                                key={item._id}
-                                                value={item._id}
-                                            >
-                                                {item.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </>
-
-                                {errors.category && (
-                                    <span className="text-red-500">
-                                        Category is required
-                                    </span>
-                                )}
-                                <Input
-                                    label="Uz Title"
-                                    placeholder="Title Uzbek"
-                                    rules={{
-                                        ...register("titles.uzTitle", {
-                                            required: true,
-                                        }),
-                                    }}
-                                />
-                                {errors.titles?.uzTitle && (
-                                    <span className="text-red-500">
-                                        Uz Title is required
-                                    </span>
-                                )}
-                                <Input
-                                    label="Ru Title"
-                                    placeholder="Title Russian"
-                                    rules={{
-                                        ...register("titles.ruTitle", {
-                                            required: true,
-                                        }),
-                                    }}
-                                />
-                                {errors.titles?.ruTitle && (
-                                    <span className="text-red-500">
-                                        Ru Title is required
-                                    </span>
-                                )}
-                                <Input
-                                    label="En Title"
-                                    placeholder="Title English"
-                                    rules={{
-                                        ...register("titles.engTitle", {
-                                            required: true,
-                                        }),
-                                    }}
-                                />
-                                {errors.titles?.engTitle && (
-                                    <span className="text-red-500">
-                                        En Title is required
-                                    </span>
-                                )}
-                                <div className="flex items-center text-xl font-bold gap-2">
-                                    <Input
-                                        label="Price"
-                                        rules={{
-                                            ...register("price", {
-                                                required: true,
-                                            }),
-                                        }}
-                                        placeholder="price"
-                                        type="number"
-                                    />
-                                    {errors.price && (
-                                        <span className="text-red-500">
-                                            Price is required
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="relative">
+            <div className="border-2 rounded-xl p-4 bg-white">
+                <div className="flex items-center justify-between w-full mb-5">
+                    <div>
+                        <Input
+                            label="Name"
+                            placeholder="Product name"
+                            rules={{
+                                ...register("name", { required: true }),
+                            }}
+                        />
+                        {errors.name && (
+                            <span className="text-red-500">
+                                Title is required
+                            </span>
+                        )}
                     </div>
-                    <div className="border-2 rounded-xl p-4 bg-white">
-                        <div className="flex flex-col gap-4">
-                            <h2>Description</h2>
-                            <hr />
-                            <TextArea
+
+                    <div className="flex items-center gap-5">
+                        <button
+                            type="submit"
+                            className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md"
+                        >
+                            <FiFolderPlus size="22" />
+                            Create/Save
+                        </button>
+                        <Link href="/goods">
+                            <button
+                                type="button"
+                                className="flex items-center gap-3 bg-red-500 text-white py-3 px-5 rounded-md"
+                            >
+                                <MdCancel />
+                                Cancel
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+                <div className="flex items-start gap-10 ">
+                    <FileUpload
+                        handleImageChange={handleImageChange}
+                        rules={{
+                            ...register("image", {
+                                required: "Image is required",
+                            }),
+                        }}
+                        image={image}
+                        currentImage=""
+                    />
+
+                    <div className="flex flex-col items-start gap-2 w-full">
+                        <>
+                            <span>Category</span>
+                            <select
+                                className="w-full font-normal border-2 rounded-md p-3"
+                                {...register("category", {
+                                    required: true,
+                                })}
+                            >
+                                {categories?.map((item: any) => (
+                                    <option key={item._id} value={item._id}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </>
+
+                        {errors.category && (
+                            <span className="text-red-500">
+                                Category is required
+                            </span>
+                        )}
+                        <Input
+                            label="Uz Title"
+                            placeholder="Title Uzbek"
+                            rules={{
+                                ...register("titles.uzTitle", {
+                                    required: true,
+                                }),
+                            }}
+                        />
+                        {errors.titles?.uzTitle && (
+                            <span className="text-red-500">
+                                Uz Title is required
+                            </span>
+                        )}
+                        <Input
+                            label="Ru Title"
+                            placeholder="Title Russian"
+                            rules={{
+                                ...register("titles.ruTitle", {
+                                    required: true,
+                                }),
+                            }}
+                        />
+                        {errors.titles?.ruTitle && (
+                            <span className="text-red-500">
+                                Ru Title is required
+                            </span>
+                        )}
+                        <Input
+                            label="En Title"
+                            placeholder="Title English"
+                            rules={{
+                                ...register("titles.engTitle", {
+                                    required: true,
+                                }),
+                            }}
+                        />
+                        {errors.titles?.engTitle && (
+                            <span className="text-red-500">
+                                En Title is required
+                            </span>
+                        )}
+                        <div className="flex items-center text-xl font-bold gap-2">
+                            <Input
+                                label="Price"
                                 rules={{
-                                    ...register("description", {
+                                    ...register("price", {
                                         required: true,
                                     }),
                                 }}
+                                placeholder="price"
+                                type="number"
                             />
-                            {errors.description && (
+                            {errors.price && (
                                 <span className="text-red-500">
-                                    Description is required
+                                    Price is required
                                 </span>
                             )}
                         </div>
                     </div>
-                </form>
-            )}
-        </>
+                </div>
+            </div>
+            <div className="border-2 rounded-xl p-4 bg-white">
+                <div className="flex flex-col gap-4">
+                    <h2>Description</h2>
+                    <hr />
+                    <TextArea
+                        rules={{
+                            ...register("description", {
+                                required: true,
+                            }),
+                        }}
+                    />
+                    {errors.description && (
+                        <span className="text-red-500">
+                            Description is required
+                        </span>
+                    )}
+                </div>
+            </div>
+
+            {handleModal ? (
+                <div className="bg-[#00000022] backdrop-blur-sm absolute top-0 left-0 w-full h-full rounded-xl flex items-center justify-center">
+                    <span className="loader"></span>
+                </div>
+            ) : null}
+        </form>
     );
 };
 
