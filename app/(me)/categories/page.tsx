@@ -92,9 +92,9 @@ export default async function Page() {
 						))}
 					</tbody>
 				</table>
-				<div className="absolute bottom-0 w-full">
+				{/* <div className="absolute bottom-0 w-full">
 					<Pagination data={res.data} handleGetPage={handleGetPage} />
-				</div>
+				</div> */}
 			</div>
 			<CategoryModal onClose={onClose} onOk={onOk} />
 			<EditCategory onClose={onClose} onOk={onOk} />
