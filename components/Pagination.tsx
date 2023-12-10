@@ -1,13 +1,13 @@
 "use client"
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface PaginationProps {
-	handleGetPage: (page: any) => Promise<void>
 	data: any;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ data, handleGetPage }) => {
-	// const [page, setPage] = useState()
+const Pagination: React.FC<PaginationProps> = ({ data }) => {
+	const {push} = useRouter()
 	
 	return (
 		<nav
@@ -26,31 +26,41 @@ const Pagination: React.FC<PaginationProps> = ({ data, handleGetPage }) => {
 			</span>
 			<ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
 				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
+					<button
+						className={`${data.page === 1 && "cursor-not-allowed"} flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 `}
+						disabled={data.page === 0}
+						onClick={() => {
+							if(data.page > 0) {
+								push(`?page=${data.page - 1}`)
+							}
+						}}
 					>
 						Previous
-					</a>
+					</button>
 				</li>
 				{Array.from({ length: data.pageCount }).map((item, idx:number) => (
 					<li key={idx} onClick={() => {
-						handleGetPage(idx + 1)
+						push(`?page=${idx + 1}`)
 					}} >
 						<span
-							className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
+							className={`${data.page === idx + 1 ? "bg-blue-50" : ""}  flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 `}
 						>
 							{idx + 1}
 						</span>
 					</li>
 				))}
 				<li>
-					<a
-						href="#"
-						className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
+					<button
+						className={`${data.page === data.pageCount && "cursor-not-allowed"} flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 `}
+						disabled={data.page === data.pageCount}
+						onClick={() => {
+							if(data.page < data.pageCount) {
+								push(`?page=${data.page + 1}`)
+							}
+						}}
 					>
 						Next
-					</a>
+					</button>
 				</li>
 			</ul>
 		</nav>
