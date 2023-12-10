@@ -1,21 +1,13 @@
 import Pagination from "@/components/Pagination";
 import TableItem from "@/components/TableItem";
 import axios from "axios";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { FiFolderPlus } from "react-icons/fi";
 
-export default async function Page() {
-	const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products")
+export default async function Page({searchParams}: any) {
+	const page = searchParams['page'] ?? '1'
 
-	async function handleGetPage(page:any) {
-		"use server"
-		console.log(page);
-		const res = await axios.get(process.env.NEXT_PUBLIC_API + "/products?page=" + page)
-
-		console.log(CreateTables({arr: res.data.data}));
-		
-	}	
+	const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/products?page=${page}`)
 
 	return (
 		<div>
@@ -57,24 +49,15 @@ export default async function Page() {
 						</tr>
 					</thead>
 					<tbody>
-						{CreateTables({arr: res.data.data})}
-						{/* {res.data.data.map((item:any, idx:number) => (
+						{res.data.data.map((item:any, idx:number) => (
 							<TableItem key={idx} idx={idx} {...item} />
-						))} */}
+						))}
 					</tbody>
 				</table>
 				<div className="absolute bottom-0 w-full">
-					<Pagination data={res.data} handleGetPage={handleGetPage} />
+					<Pagination data={res.data} />
 				</div>
 			</div>
 		</div>
 	);
-}
-
-function CreateTables({arr}:any) {
-	return (
-		arr.map((item:any, idx:number) => (
-			<TableItem key={idx} idx={idx} {...item} />
-		))
-	)
 }
