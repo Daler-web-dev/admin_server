@@ -78,8 +78,10 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 	const searchParams = useSearchParams();
 	const dialogRef = useRef<null | HTMLDialogElement>(null);
 	const showDialog = searchParams.get("showDialog");
-
+	
+	
 	useEffect(() => {
+		console.log({showDialog});
 		if (showDialog === "y") {
 			dialogRef.current?.showModal();
 		} else {
@@ -92,11 +94,7 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 		router.push("?showDialog=n", { shalow: false });
 		onClose();
 	};
-	const clickOk = () => {
-		onOk();
-		closeDialog();
-	};
-
+	
 	const dialog: JSX.Element | null =
 		showDialog === "y" ? (
 			<dialog ref={dialogRef}>

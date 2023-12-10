@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
 	return (
 		<div>
-			Home
+			<h1 className="mb-4 font-normal text-xl" >Welcome</h1>
+			<div className="w-full bg-[#daebff] rounded-md h-[500px] flex justify-center items-center">
+				<h2 className="text-[3xl] font-bold" >Video guide soon</h2>
+			</div>
 		</div>
 	);
 }

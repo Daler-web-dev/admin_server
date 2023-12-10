@@ -30,7 +30,7 @@ const ImportDB: React.FC<ImportDBProps> = () => {
 				onClick={handleImportDB}
 			>
 				<span className="flex items-center gap-3">
-					<TbDatabaseImport size="22px" /> Import products
+					<TbDatabaseImport size="22px" /> Export products
 				</span>
 			</li>
 		</>

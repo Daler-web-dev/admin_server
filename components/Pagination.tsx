@@ -8,6 +8,7 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ data }) => {
 	const {push} = useRouter()
+	console.log({data});
 	
 	return (
 		<nav
@@ -28,7 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({ data }) => {
 				<li>
 					<button
 						className={`${data.page === 1 && "cursor-not-allowed"} flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 `}
-						disabled={data.page === 0}
+						disabled={data.page === 1}
 						onClick={() => {
 							if(data.page > 0) {
 								push(`?page=${data.page - 1}`)
@@ -43,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({ data }) => {
 						push(`?page=${idx + 1}`)
 					}} >
 						<span
-							className={`${data.page === idx + 1 ? "bg-blue-50" : ""}  flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 `}
+							className={`${data.page === idx + 1 && "bg-[#daebff]"}  flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 `}
 						>
 							{idx + 1}
 						</span>

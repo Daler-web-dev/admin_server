@@ -1,7 +1,6 @@
 import CategoryModal from "@/components/CategoryModal";
 import DeleteBtn from "@/components/DeleteBtn";
 import EditCategory from "@/components/EditCategory";
-import Pagination from "@/components/Pagination";
 import axios from "axios";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -14,11 +13,6 @@ export default async function Page() {
 	const theme = cookieStore.get("token");
 	const { token } = JSON.parse(theme?.value || "");
 
-	async function handleGetPage(page: number) {
-		"use server";
-		const res = await axios.get(process.env.NEXT_PUBLIC_API + "/categories?page=" + page)
-		console.log({res});
-	}
 	async function onClose() {
 		"use server";
 
