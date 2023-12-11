@@ -1,6 +1,5 @@
 "use client"
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
 interface PaginationProps {
 	data: any;
@@ -8,7 +7,6 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ data }) => {
 	const {push} = useRouter()
-	console.log({data});
 	
 	return (
 		<nav
@@ -44,7 +42,7 @@ const Pagination: React.FC<PaginationProps> = ({ data }) => {
 						push(`?page=${idx + 1}`)
 					}} >
 						<span
-							className={`${data.page === idx + 1 && "bg-[#daebff]"}  flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 `}
+							className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${(data.page === idx + 1) ? "bg-[#daebff]" : "bg-white"}`}
 						>
 							{idx + 1}
 						</span>
