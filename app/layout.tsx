@@ -17,6 +17,9 @@ export default function RootLayout({
 
 	return (
 		<html lang="en">
+			<head>
+				<title>Amadea | Admin Panel</title>
+			</head>
 			<body className={inter.className} style={{backgroundColor: "#F3F6FD", height: "100vh"}} >
 				{children}
 			</body>
