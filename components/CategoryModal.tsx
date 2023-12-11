@@ -81,7 +81,6 @@ export default function CategoryModal({ category, onClose, onOk }: Props) {
 	
 	
 	useEffect(() => {
-		console.log({showDialog});
 		if (showDialog === "y") {
 			dialogRef.current?.showModal();
 		} else {

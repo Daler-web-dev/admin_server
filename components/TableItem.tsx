@@ -23,6 +23,7 @@ interface TableItemProps {
 }
 
 const TableItem: React.FC<TableItemProps> = ({_id,idx, name, titles, image, price, description, category}) => {
+	console.log({category});
 	
 	return (
 		<tr className="bg-[#EEF1F8] border-b hover:bg-gray-200 even:bg-white text-[#111728]">
@@ -38,7 +39,7 @@ const TableItem: React.FC<TableItemProps> = ({_id,idx, name, titles, image, pric
 				{name}
 			</th>
 			<td className="px-6 py-4"></td>
-			<td className="px-6 py-4">{category.name}</td>
+			<td className="px-6 py-4">{category?.name}</td>
 			<td className="px-6 py-4">${price}</td>
 			<td className="px-6 py-4">
 				<Link

@@ -35,6 +35,8 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 		image: current_image,
 	};
 
+	console.log({current_image});
+
 	const {
 		register,
 		handleSubmit,
@@ -50,15 +52,11 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 	const onSubmit = async (data: any) => {
 		setLoading(true);
 		try {
-            // if(data.name === name || data.image[])    
-            
-            // console.log(data.image, "SSSSS");
-            console.log(data.image[0]);
-            
             if(typeof(data.image) !== 'string') {
                 data.image = data?.image[0]
-            }
-            console.log(data);
+            } else {
+                data.image = current_image
+			}
             
 			const res = await axios.patch(
 				process.env.NEXT_PUBLIC_API + "/categories/" + id,
