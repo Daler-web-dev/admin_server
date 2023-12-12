@@ -26,7 +26,7 @@ export default async function Page() {
 	return (
 		<div>
 			<div className="flex items-center justify-between w-full">
-				<h2 className="text-3xl mb-5">Product list</h2>
+				<h2 className="text-3xl mb-5">Category list</h2>
 				<Link href="?showDialog=y">
 					<button className="flex items-center gap-3 bg-[#0A60FE] text-white py-3 px-5 rounded-md mb-5">
 						<FiFolderPlus size="22" />
