@@ -40,7 +40,7 @@ const TableItem: React.FC<TableItemProps> = ({_id,idx, name, titles, image, pric
 			</th>
 			<td className="px-6 py-4"></td>
 			<td className="px-6 py-4">{category?.name}</td>
-			<td className="px-6 py-4">${price}</td>
+			<td className="px-6 py-4">${price.toLocaleString('us-US')}</td>
 			<td className="px-6 py-4">
 				<Link
 					href={"/goods/" + _id}

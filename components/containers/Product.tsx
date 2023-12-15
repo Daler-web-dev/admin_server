@@ -26,7 +26,7 @@ interface ProductProps {
 	category: Category;
 	image: string;
 	description: string;
-	testsCount: number;
+	testCount: number;
 	manufacturer: string;
 	titles: {
 		ruTitle: string;
@@ -41,7 +41,7 @@ interface Inputs {
 	category: any;
 	image: any;
 	description: string;
-	testsCount: number | string;
+	testCount: number | string;
 	manufacturer: string;
 	titles: {
 		uzTitle: string;
@@ -57,7 +57,7 @@ const Product: React.FC<ProductProps> = ({
 	price,
 	description,
 	image,
-	testsCount,
+	testCount,
 	manufacturer,
 	categories,
 	_id,
@@ -86,9 +86,20 @@ const Product: React.FC<ProductProps> = ({
 			price,
 			description,
 			image,
-			testsCount,
+			testCount,
 			manufacturer,
 		},
+	});
+
+	console.log({
+		name,
+		category: category._id,
+		titles,
+		price,
+		description,
+		image,
+		testCount,
+		manufacturer,
 	});
 
 	const onSubmit = async (data: any) => {
@@ -362,7 +373,7 @@ const Product: React.FC<ProductProps> = ({
 								type="number"
 								rules={{
 									...register("price", {
-										required: true,
+										required: false,
 									}),
 								}}
 							/>
@@ -381,12 +392,12 @@ const Product: React.FC<ProductProps> = ({
 									label="Tests amount"
 									placeholder="Tests amount"
 									rules={{
-										...register("testsCount", {
+										...register("testCount", {
 											required: true,
 										}),
 									}}
 								/>
-								{errors.testsCount && (
+								{errors.testCount && (
 									<span className="text-red-500">
 										Tests amount is required
 									</span>
@@ -394,7 +405,7 @@ const Product: React.FC<ProductProps> = ({
 							</>
 						) : (
 							<h2 className="text-xl font-bold">
-								{testsCount || "no test count"}
+								{testCount || "no test count"}
 							</h2>
 						)}
 					</div>
