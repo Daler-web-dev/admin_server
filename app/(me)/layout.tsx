@@ -1,12 +1,9 @@
 import Link from "next/link";
-import { FiUser } from "react-icons/fi";
 import { MdOutlineExitToApp } from "react-icons/md";
 
 import Navigations from "@/components/Navigations";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { TbDatabaseImport } from "react-icons/tb";
-import axios from "axios";
 import ImportDB from "@/components/ImportDB";
 
 export default function DashboardLayout({
