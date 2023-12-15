@@ -38,11 +38,11 @@ const Pagination: React.FC<PaginationProps> = ({ data }) => {
 					</button>
 				</li>
 				{Array.from({ length: data.pageCount }).map((item, idx:number) => (
-					<li key={idx} onClick={() => {
+					<li key={idx} className="cursor-pointer" onClick={() => {
 						push(`?page=${idx + 1}`)
 					}} >
 						<span
-							className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${(data.page === idx + 1) ? "bg-[#daebff]" : "bg-white"}`}
+							className={`cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${(data.page === idx + 1) ? "bg-[#daebff]" : "bg-white"}`}
 						>
 							{idx + 1}
 						</span>
