@@ -30,18 +30,12 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 	const current_image = searchParams.get("image");
 	const id = searchParams.get("id");
 
-	const initialValues: any = {
-		name,
-		image: current_image,
-	};
-
-	console.log({current_image});
-
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
+		setValue
 	} = useForm<Inputs>({
 		defaultValues: {
 			name: name || "",
@@ -52,19 +46,19 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 	const onSubmit = async (data: any) => {
 		setLoading(true);
 		try {
-            if(typeof(data.image) !== 'string') {
-                data.image = data?.image[0]
-            } else {
-                data.image = current_image
+			if (typeof data.image !== "string") {
+				data.image = data?.image[0];
+			} else {
+				data.image = current_image;
 			}
-            
+
 			const res = await axios.patch(
 				process.env.NEXT_PUBLIC_API + "/categories/" + id,
 				data,
 				{
 					headers: {
 						Authorization: cookies?.token?.token,
-                        "Content-Type": "multipart/form-data"
+						"Content-Type": "multipart/form-data",
 					},
 				}
 			);
@@ -76,7 +70,7 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 				setLoading(false);
 				return;
 			}
-		} catch (e) {            
+		} catch (e) {
 			setLoading(false);
 			alert("Network error!");
 		}
@@ -99,6 +93,7 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 	useEffect(() => {
 		if (showDialog === "y") {
 			dialogRef.current?.showModal();
+			setValue("name", searchParams.get("name") || "")
 		} else {
 			dialogRef.current?.close();
 		}
@@ -114,7 +109,7 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 		showDialog === "y" ? (
 			<dialog ref={dialogRef}>
 				<div className="flex flex-col gap-3 w-[700px] h-[400px] bg-white rounded-md p-4">
-					<h1>edit</h1>
+					<h1>Edit</h1>
 					<button
 						onClick={closeDialog}
 						className="absolute top-4 right-4"
@@ -142,11 +137,14 @@ export default function EditCategory({ category, onClose, onOk }: Props) {
 							onChange={handleImageChange}
 							multiple
 						/>
-						{loading ? (
-							<span>loading...</span>
-						) : (
-							<button type="submit">create</button>
-						)}
+
+						<button
+							type="submit"
+							disabled={loading}
+							className="p-4 rounded-md bg-blue-500 hover:bg-blue-300 text-white"
+						>
+							{loading ? "loading..." : "Edit"}
+						</button>
 					</form>
 					<h3>Category name: </h3>
 					<img
