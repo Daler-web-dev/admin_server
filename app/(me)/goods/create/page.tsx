@@ -166,7 +166,7 @@ const Product = () => {
 								Category is required
 							</span>
 						)}
-						<div className="flex flex-col items-start gap-1 border-2 w-full rounded-md p-2" >
+						<div className="flex flex-col items-start gap-1 border-2 w-full rounded-md p-2">
 							<Input
 								label="Uz Title"
 								placeholder="Title Uzbek"
@@ -210,34 +210,7 @@ const Product = () => {
 								</span>
 							)}
 						</div>
-						<Input
-							label="Tests amount"
-							placeholder="Title English"
-							rules={{
-								...register("testsCount", {
-									required: true,
-								}),
-							}}
-						/>
-						{errors.testsCount && (
-							<span className="text-red-500">
-								Tests amount is required
-							</span>
-						)}
-						<Input
-							label="Manufacturer"
-							placeholder="Manufacturer"
-							rules={{
-								...register("manufacturer", {
-									required: true,
-								}),
-							}}
-						/>
-						{errors.manufacturer && (
-							<span className="text-red-500">
-								Manufacturer is required
-							</span>
-						)}
+
 						<Input
 							label="Price"
 							rules={{
@@ -257,6 +230,40 @@ const Product = () => {
 				</div>
 			</div>
 			<div className="border-2 rounded-xl p-4 bg-white">
+				<div className="w-full flex items-center justify-between gap-4 mb-4">
+					<div className="w-full flex flex-col">
+						<Input
+							label="Tests amount"
+							placeholder="Title English"
+							rules={{
+								...register("testsCount", {
+									required: true,
+								}),
+							}}
+						/>
+						{errors.testsCount && (
+							<span className="text-red-500">
+								Tests amount is required
+							</span>
+						)}
+					</div>
+					<div className="w-full flex flex-col">
+						<Input
+							label="Manufacturer"
+							placeholder="Manufacturer"
+							rules={{
+								...register("manufacturer", {
+									required: true,
+								}),
+							}}
+						/>
+						{errors.manufacturer && (
+							<span className="text-red-500">
+								Manufacturer is required
+							</span>
+						)}
+					</div>
+				</div>
 				<div className="flex flex-col gap-4">
 					<h2>Description</h2>
 					<hr />

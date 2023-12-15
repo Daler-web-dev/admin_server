@@ -81,7 +81,7 @@ const Product: React.FC<ProductProps> = ({
 	} = useForm<Inputs>({
 		defaultValues: {
 			name,
-			category,
+			category: category._id,
 			titles,
 			price,
 			description,
@@ -281,7 +281,7 @@ const Product: React.FC<ProductProps> = ({
 								<span>Category</span>
 								<select
 									className="w-full font-normal border-2 rounded-md p-3"
-									defaultValue={category._id}
+									// defaultValue={category.name}
 									{...register("category", {
 										required: true,
 									})}
@@ -351,6 +351,30 @@ const Product: React.FC<ProductProps> = ({
 							</h2>
 						)}
 						<hr className=" border-2 w-full" />
+
+						{!changing && (
+							<h2 className="text-2xl font-bold">Price</h2>
+						)}
+						{changing ? (
+							<Input
+								label="Price"
+								placeholder="price"
+								type="number"
+								rules={{
+									...register("price", {
+										required: true,
+									}),
+								}}
+							/>
+						) : (
+							<span>{price.toLocaleString("us-US")} sum</span>
+						)}
+					</div>
+				</div>
+			</div>
+			<div className="border-2 rounded-xl p-4 bg-white">
+				<div className="w-full flex items-center justify-between gap-4 mb-4">
+					<div className="w-full flex flex-col">
 						{changing ? (
 							<>
 								<Input
@@ -373,6 +397,8 @@ const Product: React.FC<ProductProps> = ({
 								{testsCount || "no test count"}
 							</h2>
 						)}
+					</div>
+					<div className="w-full flex flex-col">
 						{changing ? (
 							<>
 								<Input
@@ -395,27 +421,9 @@ const Product: React.FC<ProductProps> = ({
 								{manufacturer || "no manufacturer"}
 							</h2>
 						)}
-						{!changing && (
-							<h2 className="text-2xl font-bold">Price</h2>
-						)}
-						{changing ? (
-							<Input
-								label="Price"
-								placeholder="price"
-								type="number"
-								rules={{
-									...register("price", {
-										required: true,
-									}),
-								}}
-							/>
-						) : (
-							<span>{price.toLocaleString("us-US")} sum</span>
-						)}
 					</div>
 				</div>
-			</div>
-			<div className="border-2 rounded-xl p-4 bg-white">
+				<hr className="my-4" />
 				<div className="flex flex-col gap-4">
 					<h2 className="text-2xl font-bold">Description</h2>
 					<hr />
