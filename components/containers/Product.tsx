@@ -26,6 +26,8 @@ interface ProductProps {
 	category: Category;
 	image: string;
 	description: string;
+	testsCount: number;
+	manufacturer: string;
 	titles: {
 		ruTitle: string;
 		engTitle: string;
@@ -39,6 +41,8 @@ interface Inputs {
 	category: any;
 	image: any;
 	description: string;
+	testsCount: number | string;
+	manufacturer: string;
 	titles: {
 		uzTitle: string;
 		ruTitle: string;
@@ -53,6 +57,8 @@ const Product: React.FC<ProductProps> = ({
 	price,
 	description,
 	image,
+	testsCount,
+	manufacturer,
 	categories,
 	_id,
 }) => {
@@ -68,7 +74,11 @@ const Product: React.FC<ProductProps> = ({
 		description,
 		image,
 	};
-	const { register, handleSubmit } = useForm<Inputs>({
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<Inputs>({
 		defaultValues: {
 			name,
 			category,
@@ -76,9 +86,10 @@ const Product: React.FC<ProductProps> = ({
 			price,
 			description,
 			image,
+			testsCount,
+			manufacturer,
 		},
 	});
-	
 
 	const onSubmit = async (data: any) => {
 		try {
@@ -109,7 +120,7 @@ const Product: React.FC<ProductProps> = ({
 				{} as Partial<Inputs>
 			);
 
-			if(changedFields?.image) {
+			if (changedFields?.image) {
 				changedFields = {
 					...changedFields,
 					image: changedFields?.image[0],
@@ -151,26 +162,28 @@ const Product: React.FC<ProductProps> = ({
 	};
 
 	const handleRemove = async () => {
-		const answer = confirm('Are u sure to delete this product?')
+		const answer = confirm("Are u sure to delete this product?");
 
-		if(answer) {
+		if (answer) {
 			try {
-				const res = await axios.delete(process.env.NEXT_PUBLIC_API + "/products/" + _id, {
-					headers: {
-						Authorization: cookies?.token?.token
+				const res = await axios.delete(
+					process.env.NEXT_PUBLIC_API + "/products/" + _id,
+					{
+						headers: {
+							Authorization: cookies?.token?.token,
+						},
 					}
-				})
+				);
 
-				if(res.status === 201 || res.status === 200) {
-					alert('Success!')
-					push("/goods")
+				if (res.status === 201 || res.status === 200) {
+					alert("Success!");
+					push("/goods");
 				}
-			} catch(e) {
-				alert('Network error try again')
+			} catch (e) {
+				alert("Network error try again");
 			}
 		}
-	}
-	
+	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -187,8 +200,8 @@ const Product: React.FC<ProductProps> = ({
 							/>
 						</div>
 					) : (
-						<div className="flex flex-col" >
-							<h2 className="text-2xl font-bold" >Name</h2>
+						<div className="flex flex-col">
+							<h2 className="text-2xl font-bold">Name</h2>
 							<h1>{name}</h1>
 						</div>
 					)}
@@ -282,13 +295,13 @@ const Product: React.FC<ProductProps> = ({
 							</>
 						) : (
 							<>
-								<h2 className="text-2xl font-bold" >Category</h2>
-								<span>
-									{category.name}
-								</span>
+								<h2 className="text-2xl font-bold">Category</h2>
+								<span>{category.name}</span>
 							</>
 						)}
-						{!changing && <h2 className="text-2xl font-bold" >Titles</h2>}
+						{!changing && (
+							<h2 className="text-2xl font-bold">Titles</h2>
+						)}
 						<hr className=" border-2 w-full" />
 						{changing ? (
 							<Input
@@ -300,10 +313,9 @@ const Product: React.FC<ProductProps> = ({
 									}),
 								}}
 							/>
-							
 						) : (
 							<h2 className="text-xl font-bold">
-								🇺🇿 {" "}{titles.uzTitle}
+								🇺🇿 {titles.uzTitle}
 							</h2>
 						)}
 						<hr className=" border-2 w-full" />
@@ -319,7 +331,7 @@ const Product: React.FC<ProductProps> = ({
 							/>
 						) : (
 							<h2 className="text-xl font-bold">
-								🇷🇺 {" "}{titles.ruTitle}
+								🇷🇺 {titles.ruTitle}
 							</h2>
 						)}
 						<hr className=" border-2 w-full" />
@@ -335,11 +347,57 @@ const Product: React.FC<ProductProps> = ({
 							/>
 						) : (
 							<h2 className="text-xl font-bold">
-								🇬🇧 {" "}{titles.engTitle}
+								🇬🇧 {titles.engTitle}
 							</h2>
 						)}
 						<hr className=" border-2 w-full" />
-						{!changing && <h2 className="text-2xl font-bold" >Price</h2>}
+						{changing ? (
+							<>
+								<Input
+									label="Tests amount"
+									placeholder="Tests amount"
+									rules={{
+										...register("testsCount", {
+											required: true,
+										}),
+									}}
+								/>
+								{errors.testsCount && (
+									<span className="text-red-500">
+										Tests amount is required
+									</span>
+								)}
+							</>
+						) : (
+							<h2 className="text-xl font-bold">
+								{testsCount || "no test count"}
+							</h2>
+						)}
+						{changing ? (
+							<>
+								<Input
+									label="Manufacturer"
+									placeholder="Manufacturer"
+									rules={{
+										...register("manufacturer", {
+											required: true,
+										}),
+									}}
+								/>
+								{errors.manufacturer && (
+									<span className="text-red-500">
+										Manufacturer is required
+									</span>
+								)}
+							</>
+						) : (
+							<h2 className="text-xl font-bold">
+								{manufacturer || "no manufacturer"}
+							</h2>
+						)}
+						{!changing && (
+							<h2 className="text-2xl font-bold">Price</h2>
+						)}
 						{changing ? (
 							<Input
 								label="Price"
@@ -359,7 +417,7 @@ const Product: React.FC<ProductProps> = ({
 			</div>
 			<div className="border-2 rounded-xl p-4 bg-white">
 				<div className="flex flex-col gap-4">
-					<h2 className="text-2xl font-bold" >Description</h2>
+					<h2 className="text-2xl font-bold">Description</h2>
 					<hr />
 					{changing ? (
 						<TextArea
